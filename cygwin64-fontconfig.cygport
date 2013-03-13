@@ -1,0 +1,26 @@
+CROSS_HOST="x86_64-pc-cygwin"
+inherit cross
+
+NAME="cygwin64-fontconfig"
+VERSION=2.10.1
+RELEASE=1
+CATEGORY="Devel"
+SUMMARY="Fontconfig for Cygwin 64bit toolchain"
+DESCRIPTION="Fontconfig is a library designed to provide system-wide font
+configuration, customization and application access."
+HOMEPAGE="http://fontconfig.org/wiki/"
+SRC_URI="http://fontconfig.org/release/fontconfig-${VERSION}.tar.gz"
+SRC_DIR="fontconfig-${VERSION}"
+
+CYGCONF_ARGS="--disable-docs"
+MAKEOPTS+=" bin_PROGRAMS= "
+
+src_install() {
+	cd ${B}
+	cyginstall
+
+	rm -fr ${D}${CROSS_SYSROOT}/etc/
+	rm -fr ${D}${CROSS_DATADIR}/{fontconfig,xml}/
+}
+
+KEEP_LA_FILES="none"
